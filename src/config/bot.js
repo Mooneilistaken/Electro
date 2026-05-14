@@ -193,52 +193,7 @@ export const botConfig = {
   // =========================
   // Add shop defaults here when needed.
   shop: {
-    
-  },
-const { Client, GatewayIntentBits, SlashCommandBuilder, PermissionsBitField } = require('discord.js');
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
-
-client.once('ready', () => {
-    console.log(`Logged in as ${client.user.tag}`);
-});
-
-// Register the slash command
-client.on('ready', async () => {
-    const data = new SlashCommandBuilder()
-        .setName('humble')
-        .setDescription('Mute someone for 6 seconds')
-        .addUserOption(option =>
-            option.setName('user_name')
-                .setDescription('The user to humble')
-                .setRequired(true)
-        );
-
-    await client.application.commands.create(data);
-});
-
-// Command handler
-client.on('interactionCreate', async interaction => {
-    if (!interaction.isChatInputCommand()) return;
-
-    if (interaction.commandName === 'humble') {
-        const target = interaction.options.getUser('user_name');
-        const member = await interaction.guild.members.fetch(target.id);
-
-        if (!member.moderatable) {
-            return interaction.reply({ content: 'I cannot mute this user.', ephemeral: true });
-        }
-
-        try {
-            await member.timeout(6000, 'Humbled for 6 seconds');
-            await interaction.reply(`${target.username} has been humbled for 6 seconds.`);
-        } catch (error) {
-            console.error(error);
-            await interaction.reply({ content: 'Failed to humble this user.', ephemeral: true });
-        }
-    }
-});
-
-client.login(MTUwNDQ5OTAzNDgwNTc2ODMyMw.GwTPLL.p1C2MTztUgZlCaIR334pabDRHBfA3924pMAAQ0);
+  
 
   // =========================
   // TICKET SYSTEM
